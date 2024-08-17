@@ -25,6 +25,9 @@ source-repository head
 
 library
   exposed-modules:
+      Geo.Location
+      Geo.Path
+      Geo.Route
       Lib
   other-modules:
       Paths_lambda_travel

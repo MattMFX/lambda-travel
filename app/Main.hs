@@ -13,25 +13,21 @@ main = do
     let cr = Location "Curitiba" 134 (-672)
     let sv = Location "Salvador" 231 2455
 
-    let route1 = mkRoute sp rj
-    let route2 = mkRoute rj bs
-    let route3 = mkRoute bs cr
-    let route4 = mkRoute cr sv
+    let routeSpSp = mkRoute sp sp
+    let routeSpRj = mkRoute sp rj
+    let routeRjBs = mkRoute rj bs
+    let routeBsCr = mkRoute bs cr
+    let routeCrSv = mkRoute cr sv
+    let routeSpSv = mkRoute sp sv
 
-    let spr1 = mkRoute sp rj
-    let spr2 = mkRoute sp cr
-    let spr3 = mkRoute sp sv
+    let routes = [routeSpSp, routeSpRj, routeRjBs, routeBsCr, routeCrSv, routeSpSv]
 
-    print $ distance spr3
-
-    let routes = [route1, route2, route3, route4]
-    let sprs = [spr1, spr2, spr3]
-
-    let path = mkPath routes
-    print path
-
-    let updatedPath = update [path] (Finite 100) sprs
-    print updatedPath
+    print routeSpSp
+    print routeSpRj
+    print routeRjBs
+    print routeBsCr
+    print routeCrSv
+    print routeSpSv
 
     print $ shortestPaths sp [sp, rj, bs, cr, sv] routes []
     

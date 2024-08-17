@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Geo.Distance
       Geo.Location
       Geo.Path
       Geo.Route

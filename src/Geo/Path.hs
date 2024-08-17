@@ -1,35 +1,65 @@
-module Geo.Path where
+module Geo.Path (Path(..), mkPath, update, initialPaths, shortestPaths) where
 
-import Geo.Location (Location (Location, name))
-import Geo.Route (mkRoute, Route (Route, origin))
+import Geo.Location (Location)
+import Geo.Route (Route (Route, origin, destination))
+import Geo.Distance (Distance(Infinity))
 
 data Path = Path {
-    routes :: [Route],
-    totalDistance :: Double
+    pathOrigin :: Location,
+    pathDestination :: Location,
+    pathRoutes :: [Route],
+    totalDistance :: Distance
     }
 
--- Usar a definicao de path para calcular a o menor caminho!!!
--- Criar funcao traverse
-
 instance Show Path where
-    show (Path rs d) = unlines $ map show rs <> ["Total distance: " <> show d]
+    show (Path o d [] td) = "No path found from " <> show o <> " to " <> show d <> " (" <> show td <> ")"
+    show (Path _ _ (r:rs) ds) = show (origin r) <> " -> " <> concatPath rs <> " (Total distance: " <> show ds <> ")"
+        where
+            concatPath [] = ""
+            concatPath [Route _ d' _] = show d'
+            concatPath ((Route _ d' _):rs') = show d' <> " -> " <> concatPath rs'
 
-data Distance = Finite Double | Infinity
-    deriving (Eq, Ord, Show)
+mkPath :: [Route] -> Path
+mkPath rs = Path (origin $ head rs) (destination $ last rs) rs (foldr (\(Route _ _ d) acc -> acc + d) 0 rs)
 
-instance Num Distance where
-    (Finite d1) + (Finite d2) = Finite (d1 + d2)
-    _ + _ = Infinity
-    (Finite d1) - (Finite d2) = Finite (d1 - d2)
-    _ - _ = Infinity
 
-    (Finite d1) * (Finite d2) = Finite (d1 * d2)
-    _ * _ = Infinity
-    abs (Finite d) = Finite (abs d)
-    abs _ = Infinity
-    signum (Finite d) = Finite (signum d)
-    signum _ = Infinity
-    fromInteger i = Finite (fromInteger i)
+type Unvisited = [Location]
+type Routes = [Route]
+type ShortestKnownPaths = [Path]
+type CurrentDistance = Distance
+
+shortestPaths :: Location -> Unvisited -> Routes -> ShortestKnownPaths -> [Path]
+shortestPaths loc locs rs [] = shortestPaths loc locs rs $ initialPaths loc locs
+shortestPaths loc locs rs skp = update skp (totalDistance $ pathTo loc skp) (routesStartingAt loc rs)
+
+update :: ShortestKnownPaths -> CurrentDistance -> Routes -> ShortestKnownPaths
+update skp _ [] = skp
+update skp currentDistance ((Route _ rtDestination rtDistance):rs) = map update' skp'
+    where
+        skp' = update skp currentDistance rs
+        knownDistance = totalDistance $ pathTo rtDestination skp'
+        newDistance = currentDistance + rtDistance
+        isShorter = newDistance < knownDistance
+        updatedDistance = if isShorter then newDistance else knownDistance
+        update' (Path o d r td) = if d == rtDestination then Path o d r updatedDistance else Path o d r td
+
+pathTo :: Location -> ShortestKnownPaths -> Path
+pathTo l [] = Path l l [] 0
+pathTo l paths = case fPaths paths of
+    [] -> Path l l [] 0
+    (p:_) -> p
+    where
+        fPaths = filter (\(Path _ d _ _) -> d == l)
+
+initialPaths :: Location -> Unvisited -> ShortestKnownPaths
+initialPaths l = map (\l' -> Path l l' [] Infinity)
+
+routesStartingAt :: Location -> [Route] -> [Route]
+routesStartingAt l = filter (\(Route o _ _) -> o == l)
+
+-- applyFor :: a -> [a] -> (a -> a) -> [a]
+-- applyFor a' (a:as) f = if a == a' then f a : as else a : applyFor a' as f
+
 
 -- shortestPath :: [Location] -> [Route] -> Location -> Location -> Maybe Path
 -- shortestPath [] _ _ _ = Nothing

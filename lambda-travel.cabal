@@ -25,6 +25,8 @@ source-repository head
 
 library
   exposed-modules:
+      Data.Location
+      Data.Route
       Geo.Distance
       Geo.Location
       Geo.Path
@@ -39,6 +41,7 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , split
   default-language: Haskell2010
 
 executable lambda-travel-exe
@@ -53,6 +56,7 @@ executable lambda-travel-exe
   build-depends:
       base >=4.7 && <5
     , lambda-travel
+    , split
   default-language: Haskell2010
 
 test-suite lambda-travel-test
@@ -68,4 +72,5 @@ test-suite lambda-travel-test
   build-depends:
       base >=4.7 && <5
     , lambda-travel
+    , split
   default-language: Haskell2010

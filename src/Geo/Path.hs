@@ -1,4 +1,4 @@
-module Geo.Path (Path(..), mkPath, update, initialPaths, shortestPaths) where
+module Geo.Path (Path(..), mkPath, update, initialPaths, shortestPaths, pathTo) where
 
 import Geo.Location (Location)
 import Geo.Route (Route (Route, origin, destination))
@@ -20,8 +20,8 @@ instance Ord Path where
     (Path _ _ _ d1) >= (Path _ _ _ d2) = d1 >= d2
 
 instance Show Path where
-    show (Path o d [] td) = "No path found from " <> show o <> " to " <> show d <> " (" <> show td <> ")"
-    show (Path _ _ (r:rs) ds) = show (origin r) <> " -> " <> show (destination r) <> concatPath rs <> " (Total distance: " <> show ds <> ")"
+    show (Path o d [] td) = "No path found from " <> show o <> " to " <> show d <> " (" <> show td <> ")" <> "\n"
+    show (Path _ _ (r:rs) ds) = show (origin r) <> " -> " <> show (destination r) <> concatPath rs <> " (Total distance: " <> show ds <> ")" <> "\n"
         where
             concatPath [] = ""
             concatPath [Route _ d' _] = " -> " <> show d'

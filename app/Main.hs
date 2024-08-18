@@ -20,10 +20,10 @@ main = do
         then do 
             putStrLn "Select a destination:"
             destination <- readLocation locations
-            print $ pathTo destination $ shortestPaths origin locations routes []
+            print $ pathTo destination $ shortestPaths origin locations routes
         else do
             putStrLn "Available destinations:"
-            print $ shortestPaths origin locations routes []
+            print $ shortestPaths origin locations routes
 
 readLocation :: [Location] -> IO Location
 readLocation locations = do

@@ -1,8 +1,8 @@
-module Geo.Path (Path(..), mkPath, update, initialPaths, shortestPaths, pathTo) where
+module Geo.Path (Path(..), mkPath, shortestPaths, pathTo) where
 
 import Geo.Location (Location)
 import Geo.Route (Route (Route, origin, destination))
-import Geo.Distance (Distance(Infinity))
+import Geo.Distance (Distance, mkInfinity, safeDifference)
 import Data.List (delete, sort)
 
 data Path = Path {
@@ -13,7 +13,7 @@ data Path = Path {
     }
 
 instance Eq Path where
-    (Path _ _ _ d1) == (Path _ _ _ d2) = d1 == d2
+    (Path o d _ d1) == (Path o' d' _ d2) = d1 `safeDifference` d2 < 0.0000001 && o == o' && d == d'
 
 instance Ord Path where
     (Path _ _ _ d1) <= (Path _ _ _ d2) = d1 <= d2
@@ -33,10 +33,13 @@ type Routes = [Route]
 type ShortestKnownPaths = [Path]
 type CurrentDistance = Distance
 
-shortestPaths :: Location -> Unvisited -> Routes -> ShortestKnownPaths -> [Path]
-shortestPaths loc locs rs [] = shortestPaths loc locs rs $ initialPaths loc locs
-shortestPaths _ [] _ skp = skp
-shortestPaths loc locs rs skp = shortestPaths (getNextLocation locs sortedPaths) unvisitedLocations rs updatedPaths
+shortestPaths :: Location -> [Location] -> Routes -> [Path]
+shortestPaths loc locs rs = filter (\(Path _ d _ _) -> d /= loc) $ shortestPaths' loc locs rs []
+
+shortestPaths' :: Location -> Unvisited -> Routes -> ShortestKnownPaths -> [Path]
+shortestPaths' loc locs rs [] = shortestPaths' loc locs rs $ initialPaths loc locs
+shortestPaths' _ [] _ skp = skp
+shortestPaths' loc locs rs skp = shortestPaths' (getNextLocation locs sortedPaths) unvisitedLocations rs updatedPaths
     where
         unvisitedLocations = delete loc locs
         updatedPaths = update skp (totalDistance $ pathTo loc skp) (routesStartingAt loc rs)
@@ -66,7 +69,7 @@ pathTo l paths = case fPaths paths of
         fPaths = filter (\(Path _ d _ _) -> d == l)
 
 initialPaths :: Location -> Unvisited -> ShortestKnownPaths
-initialPaths l = map (\l' -> Path l l' [] Infinity)
+initialPaths l = map (\l' -> Path l l' [] mkInfinity)
 
 routesStartingAt :: Location -> [Route] -> [Route]
 routesStartingAt l = filter (\(Route o _ _) -> o == l)
@@ -79,4 +82,5 @@ getNextLocation ls (p:ps)
     | otherwise = getNextLocation ls ps
 
 mkPath :: [Route] -> Path
+mkPath [] = error "No routes provided"
 mkPath rs = Path (origin $ head rs) (destination $ last rs) rs (foldr (\(Route _ _ d) acc -> acc + d) 0 rs)

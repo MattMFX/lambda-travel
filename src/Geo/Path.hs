@@ -27,9 +27,6 @@ instance Show Path where
             concatPath [Route _ d' _] = " -> " <> show d'
             concatPath ((Route _ d' _):rs') = " -> " <> show d' <> concatPath rs'
 
-mkPath :: [Route] -> Path
-mkPath rs = Path (origin $ head rs) (destination $ last rs) rs (foldr (\(Route _ _ d) acc -> acc + d) 0 rs)
-
 
 type Unvisited = [Location]
 type Routes = [Route]
@@ -80,3 +77,6 @@ getNextLocation _ [] = error "No more paths to check"
 getNextLocation ls (p:ps)
     | pathDestination p `elem` ls = pathDestination p
     | otherwise = getNextLocation ls ps
+
+mkPath :: [Route] -> Path
+mkPath rs = Path (origin $ head rs) (destination $ last rs) rs (foldr (\(Route _ _ d) acc -> acc + d) 0 rs)

@@ -1,5 +1,5 @@
 {-# LANGUAGE BlockArguments #-}
-import Geo.Distance (Distance(..), mkDistance, safeDifference, mkInfinity)
+import Geo.Distance (Distance, mkDistance, safeDifference, mkInfinity)
 import Control.Exception (SomeException(), try, evaluate, Exception (displayException))
 import GHC.IO (unsafePerformIO)
 import Data.List (isInfixOf)

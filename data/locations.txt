@@ -25,6 +25,4 @@ Lagos -300 0
 Singapore 10400 100
 Lima -10600 -1200
 Chicago -6700 4100
-Moscow 3700 4200
 Melbourne 14500 -3700
-Dubai 5000 850

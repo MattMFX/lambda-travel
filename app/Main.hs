@@ -1,8 +1,9 @@
 module Main (main) where
 import Geo.Location (lookupLocation, Location)
-import Geo.Path (shortestPaths, pathTo)
+import Geo.Path (shortestPaths, Path (Path))
 import Data.Location (loadLocations)
 import Data.Route (loadRoutes)
+import Geo.Route (Route(distance))
 
 
 main :: IO ()
@@ -19,11 +20,15 @@ main = do
     if option == "1"
         then do 
             putStrLn "Select a destination:"
-            destination <- readLocation locations
-            print $ pathTo destination $ shortestPaths origin locations routes
+            d <- readLocation locations
+            let paths = shortestPaths origin locations routes distance
+            let path = filter (matchingDestination d) paths
+            print path
         else do
             putStrLn "Available destinations:"
-            print $ shortestPaths origin locations routes
+            print $ shortestPaths origin locations routes distance
+        where
+            matchingDestination d (Path _ d' _ _) = d == d'
 
 readLocation :: [Location] -> IO Location
 readLocation locations = do

@@ -6,7 +6,7 @@ import Data.List (isInfixOf)
 import Data.Data (typeOf)
 import Geo.Route (Route(distance), mkRoute)
 import Geo.Location (Location(..), lookupLocation)
-import Geo.Path (Path(..), mkPath, pathTo, shortestPaths)
+import Geo.Path (Path(..), shortestPaths)
 
 main :: IO ()
 main = do testRunner

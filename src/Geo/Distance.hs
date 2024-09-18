@@ -1,4 +1,4 @@
-module Geo.Distance (Distance, mkDistance, mkInfinity, safeDifference) where
+module Geo.Distance (Distance, mkDistance, mkInfinity, safeDifferenceDistance) where
 
 data Distance = Finite Double | Infinity
     deriving (Eq, Ord)
@@ -36,7 +36,7 @@ asDouble :: Distance -> Maybe Double
 asDouble (Finite d) = Just d
 asDouble Infinity = Nothing
 
-safeDifference :: Distance -> Distance -> Distance
-safeDifference d1 d2 = case ((-) <$> asDouble d1) <*> asDouble d2 of
+safeDifferenceDistance :: Distance -> Distance -> Distance
+safeDifferenceDistance d1 d2 = case ((-) <$> asDouble d1) <*> asDouble d2 of
     Just d -> mkDistance $ abs d
     _ -> Infinity

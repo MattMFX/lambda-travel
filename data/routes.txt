@@ -1,120 +1,120 @@
-London -> New_York
-São_Paulo -> Tokyo
-Sydney -> Moscow
-Paris -> Beijing
-Los_Angeles -> Cairo
-Rio_de_Janeiro -> Berlin
-Buenos_Aires -> Mumbai
-Johannesburg -> Mexico_City
-Toronto -> Seoul
-Dubai -> Bangkok
-Rome -> Hong_Kong
-Istanbul -> Lagos
-Singapore -> Lima
-Chicago -> Moscow
-Melbourne -> Dubai
-New_York -> Sydney
-Tokyo -> London
-Moscow -> Paris
-Beijing -> São_Paulo
-Cairo -> Los_Angeles
-Berlin -> Buenos_Aires
-Mumbai -> Johannesburg
-Mexico_City -> Toronto
-Seoul -> Rome
-Bangkok -> Istanbul
-Hong_Kong -> Singapore
-Lagos -> Chicago
-Lima -> Melbourne
-Dubai -> New_York
-Sydney -> Tokyo
-London -> São_Paulo
-New_York -> Berlin
-Tokyo -> Rome
-Moscow -> Dubai
-Paris -> Sydney
-Beijing -> Istanbul
-Cairo -> Hong_Kong
-Berlin -> Toronto
-Mumbai -> Chicago
-Johannesburg -> Bangkok
-Mexico_City -> Lagos
-Seoul -> Buenos_Aires
-Bangkok -> Singapore
-Rome -> Los_Angeles
-Dubai -> Melbourne
-Sydney -> Lima
-São_Paulo -> Seoul
-Toronto -> Moscow
-Istanbul -> Paris
-Lagos -> Rio_de_Janeiro
-Hong_Kong -> Cairo
-Lima -> Beijing
-Chicago -> Mumbai
-Buenos_Aires -> New_York
-Melbourne -> Seoul
-Los_Angeles -> London
-Paris -> Dubai
-Berlin -> Mexico_City
-Rome -> Tokyo
-London -> Bangkok
-Dubai -> Hong_Kong
-Singapore -> Moscow
-Lagos -> Tokyo
-Toronto -> Johannesburg
-Sydney -> Istanbul
-New_York -> Singapore
-Cairo -> Buenos_Aires
-Mumbai -> Rio_de_Janeiro
-Istanbul -> Melbourne
-Seoul -> London
-Bangkok -> Chicago
-Berlin -> Lima
-Paris -> Los_Angeles
-Buenos_Aires -> Seoul
-São_Paulo -> Rome
-Tokyo -> Cairo
-Los_Angeles -> Rome
-Sydney -> Hong_Kong
-São_Paulo -> Berlin
-New_York -> Buenos_Aires
-Paris -> Rio_de_Janeiro
-Moscow -> Seoul
-Beijing -> Los_Angeles
-Dubai -> Chicago
-Istanbul -> Buenos_Aires
-Toronto -> Melbourne
-Singapore -> Paris
-Johannesburg -> Hong_Kong
-Cairo -> Tokyo
-Berlin -> Johannesburg
-Sydney -> Beijing
-São_Paulo -> Singapore
-Tokyo -> Chicago
-London -> Singapore
-Los_Angeles -> Mumbai
-Rome -> Hong_Kong
-New_York -> Dubai
-Berlin -> Seoul
-Toronto -> Cairo
-Bangkok -> São_Paulo
-Melbourne -> Bangkok
-Mumbai -> Paris
-Hong_Kong -> Los_Angeles
-Istanbul -> Singapore
-Rome -> Johannesburg
-Sydney -> Dubai
-New_York -> Seoul
-São_Paulo -> Chicago
-Cairo -> Melbourne
-Tokyo -> Dubai
-Paris -> Singapore
-Los_Angeles -> Johannesburg
-Seoul -> Istanbul
-Beijing -> Paris
-Toronto -> Tokyo
-Hong_Kong -> São_Paulo
-Melbourne -> Cairo
-Chicago -> Hong_Kong
-Rome -> Singapore
-Berlin -> Sydney
+London -> New_York # 800
+São_Paulo -> Tokyo # 1350
+Sydney -> Moscow # 1200
+Paris -> Beijing # 950
+Los_Angeles -> Cairo # 1100
+Rio_de_Janeiro -> Berlin # 1250
+Buenos_Aires -> Mumbai # 1400
+Johannesburg -> Mexico_City # 1050
+Toronto -> Seoul # 1150
+Dubai -> Bangkok # 600
+Rome -> Hong_Kong # 1000
+Istanbul -> Lagos # 700
+Singapore -> Lima # 1500
+Chicago -> Moscow # 900
+Melbourne -> Dubai # 850
+New_York -> Sydney # 1350
+Tokyo -> London # 1000
+Moscow -> Paris # 850
+Beijing -> São_Paulo # 1600
+Cairo -> Los_Angeles # 1150
+Berlin -> Buenos_Aires # 1450
+Mumbai -> Johannesburg # 1000
+Mexico_City -> Toronto # 800
+Seoul -> Rome # 1050
+Bangkok -> Istanbul # 850
+Hong_Kong -> Singapore # 400
+Lagos -> Chicago # 1100
+Lima -> Melbourne # 1300
+Dubai -> New_York # 1150
+Sydney -> Tokyo # 900
+London -> São_Paulo # 1100
+New_York -> Berlin # 700
+Tokyo -> Rome # 1100
+Moscow -> Dubai # 800
+Paris -> Sydney # 1200
+Beijing -> Istanbul # 950
+Cairo -> Hong_Kong # 1100
+Berlin -> Toronto # 900
+Mumbai -> Chicago # 1150
+Johannesburg -> Bangkok # 750
+Mexico_City -> Lagos # 900
+Seoul -> Buenos_Aires # 1500
+Bangkok -> Singapore # 500
+Rome -> Los_Angeles # 1200
+Dubai -> Melbourne # 900
+Sydney -> Lima # 1400
+São_Paulo -> Seoul # 1300
+Toronto -> Moscow # 1000
+Istanbul -> Paris # 600
+Lagos -> Rio_de_Janeiro # 1200
+Hong_Kong -> Cairo # 1100
+Lima -> Beijing # 1400
+Chicago -> Mumbai # 1200
+Buenos_Aires -> New_York # 1300
+Melbourne -> Seoul # 1100
+Los_Angeles -> London # 850
+Paris -> Dubai # 800
+Berlin -> Mexico_City # 1300
+Rome -> Tokyo # 1050
+London -> Bangkok # 950
+Dubai -> Hong_Kong # 850
+Singapore -> Moscow # 1150
+Lagos -> Tokyo # 1350
+Toronto -> Johannesburg # 1250
+Sydney -> Istanbul # 1100
+New_York -> Singapore # 1000
+Cairo -> Buenos_Aires # 1450
+Mumbai -> Rio_de_Janeiro # 1350
+Istanbul -> Melbourne # 1050
+Seoul -> London # 950
+Bangkok -> Chicago # 1100
+Berlin -> Lima # 1400
+Paris -> Los_Angeles # 950
+Buenos_Aires -> Seoul # 1400
+São_Paulo -> Rome # 1200
+Tokyo -> Cairo # 1050
+Los_Angeles -> Rome # 1100
+Sydney -> Hong_Kong # 950
+São_Paulo -> Berlin # 1250
+New_York -> Buenos_Aires # 1350
+Paris -> Rio_de_Janeiro # 1200
+Moscow -> Seoul # 1000
+Beijing -> Los_Angeles # 1200
+Dubai -> Chicago # 1150
+Istanbul -> Buenos_Aires # 1300
+Toronto -> Melbourne # 1400
+Singapore -> Paris # 1050
+Johannesburg -> Hong_Kong # 1100
+Cairo -> Tokyo # 1200
+Berlin -> Johannesburg # 1300
+Sydney -> Beijing # 1300
+São_Paulo -> Singapore # 1350
+Tokyo -> Chicago # 1100
+London -> Singapore # 1200
+Los_Angeles -> Mumbai # 1300
+Rome -> Hong_Kong # 1050
+New_York -> Dubai # 1100
+Berlin -> Seoul # 1050
+Toronto -> Cairo # 850
+Bangkok -> São_Paulo # 1300
+Melbourne -> Bangkok # 1000
+Mumbai -> Paris # 1200
+Hong_Kong -> Los_Angeles # 950
+Istanbul -> Singapore # 950
+Rome -> Johannesburg # 1250
+Sydney -> Dubai # 950
+New_York -> Seoul # 1100
+São_Paulo -> Chicago # 1150
+Cairo -> Melbourne # 1050
+Tokyo -> Dubai # 1000
+Paris -> Singapore # 1200
+Los_Angeles -> Johannesburg # 1200
+Seoul -> Istanbul # 950
+Beijing -> Paris # 1050
+Toronto -> Tokyo # 1100
+Hong_Kong -> São_Paulo # 1400
+Melbourne -> Cairo # 1150
+Chicago -> Hong_Kong # 1150
+Rome -> Singapore # 1100
+Berlin -> Sydney # 1300

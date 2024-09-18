@@ -1,0 +1,16 @@
+London -> New_York | 680
+Tokyo -> Los_Angeles | 720
+São_Paulo -> Paris | 670
+Sydney -> Dubai | 740
+New_York -> Paris | 620
+Moscow -> Beijing | 610
+Tokyo -> Sydney | 790
+London -> Dubai | 650
+Beijing -> Los_Angeles | 760
+Rio_de_Janeiro -> London | 680
+Paris -> Tokyo | 710
+Dubai -> Johannesburg | 690
+Mumbai -> London | 640
+New_York -> São_Paulo | 750
+Rome -> Cairo | 430
+Los_Angeles -> Sydney | 800

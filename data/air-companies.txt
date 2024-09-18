@@ -1,0 +1,4 @@
+aero-curry
+airfunctional-europe
+haskell-us-airlines
+monad-airway-latam

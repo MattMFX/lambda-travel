@@ -1,23 +1,27 @@
-module Geo.Path (Path(..), shortestPaths) where
+module Geo.Path (Path(..), shortestPaths, Cost(..)) where
 
 import Control.Monad.State
+    ( gets, evalState, execState, MonadState(get, put), State )
 import Geo.Location (Location)
-import Geo.Route (Route (Route, origin, destination))
+import Geo.Route (Route (Route, destination, distance, price))
 import Geo.Distance (Distance, mkInfinity, safeDifferenceDistance)
 import Data.List (delete, sort)
 import Monetary.Price (infinitePrice, safeDifferencePrice, Price)
 
 class (Show a, Num a, Fractional a, Ord a) => Cost a where
+    fCost :: Route -> a
     safeDiff :: a -> a -> a
     zeroCost :: a
     infiniteCost :: a
 
 instance Cost Distance where
+    fCost = distance
     safeDiff = safeDifferenceDistance
     zeroCost = 0
     infiniteCost = mkInfinity
 
 instance Cost Price where
+    fCost = price
     safeDiff = safeDifferencePrice
     zeroCost = 0
     infiniteCost = infinitePrice
@@ -37,12 +41,12 @@ instance Cost a => Ord (Path a) where
     (Path _ _ _ c1) >= (Path _ _ _ c2) = c1 >= c2
 
 instance Cost a => Show (Path a) where
-    show (Path o d [] c) = "No path found from " <> show o <> " to " <> show d <> " (" <> show c <> ")" <> "\n"
-    show (Path _ _ (r:rs) c) = show (origin r) <> " -> " <> show (destination r) <> concatPath rs <> " (Total: " <> show c <> ")" <> "\n"
+    show (Path o d [] _) = "No path found from " <> show o <> " to " <> show d <> "\n"
+    show (Path o d rs c) = "The best path from " <> show o <> " to " <> show d <> " is:\n" <> concatPath rs <> " (Total: " <> show c <> ")" <> "\n"
         where
             concatPath [] = ""
-            concatPath [Route _ d' _ _] = " -> " <> show d'
-            concatPath ((Route _ d' _ _):rs') = " -> " <> show d' <> concatPath rs'
+            concatPath [r'] = "    " <> show r' <> "\n"
+            concatPath (r':rs') = "    " <> show r' <> "\n" <> concatPath rs'
 
 data ExecutionState a = ExecutionState {
     currentLocation :: Location,
@@ -104,95 +108,25 @@ pathTo l = do
     s <- get
     let path = filter (\(Path _ d _ _) -> d == l) $ shortestKnownPaths s
     case path of
-        [] -> error "No path found"
+        [] -> error $ "No path found" <> show l
         (p:_) -> return p
 
 routesFrom :: Location -> State (ExecutionState a) [Route]
 routesFrom l = do
-    gets (filter (\(Route o _ _ _) -> o == l) . routes)
+    gets (filter (\(Route _ o _ _ _) -> o == l) . routes)
 
 (*->*) :: Location -> Location -> State (ExecutionState a) Route
 (*->*) o d = do
     s <- get
-    let route = filter (\(Route o' d' _ _) -> o' == o && d' == d) (routes s)
+    let route = filter (\(Route _ o' d' _ _) -> o' == o && d' == d) (routes s)
     case route of
         [] -> error "No route found"
         (r:_) -> return r
 
 initialState :: Cost a => Location -> [Location] -> [Route] -> (Route -> a) -> ExecutionState a
-initialState origin locations routes = ExecutionState origin locations routes initialPaths
+initialState origin locations routeList = ExecutionState origin locations routeList initialPaths
     where
         initialPaths = map toPath locations
         toPath l = if l == origin
             then Path l l [] zeroCost
             else Path origin l [] infiniteCost
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
--- shortestPaths :: Location -> [Location] -> Routes -> [Path]
--- shortestPaths loc locs rs = filter (\(Path _ d _ _) -> d /= loc) $ shortestPaths' loc locs rs []
-
--- shortestPaths' :: Location -> Unvisited -> Routes -> ShortestKnownPaths -> [Path]
--- shortestPaths' loc locs rs [] = shortestPaths' loc locs rs $ initialPaths loc locs
--- shortestPaths' _ [] _ skp = skp
--- shortestPaths' loc locs rs skp = shortestPaths' (getNextLocation locs sortedPaths) unvisitedLocations rs updatedPaths
---     where
---         unvisitedLocations = delete loc locs
---         updatedPaths = update skp (totalDistance $ pathTo loc skp) (routesStartingAt loc rs)
---         sortedPaths = sort updatedPaths
-
-
--- update :: ShortestKnownPaths -> CurrentDistance -> Routes -> ShortestKnownPaths
--- update skp _ [] = skp
--- update skp currentDistance ((Route rtOrigin rtDestination rtDistance):rs) = map update' skp'
---     where
---         skp' = update skp currentDistance rs
---         knownDistance = totalDistance $ pathTo rtDestination skp'
---         newDistance = currentDistance + rtDistance
---         isShorter = newDistance < knownDistance
---         updatedDistance = if isShorter then newDistance else knownDistance
---         updatedRoutes = if isShorter then pathRoutes (pathTo rtOrigin skp') ++ [Route rtOrigin rtDestination rtDistance] else pathRoutes (pathTo rtDestination skp')
---         update' (Path o d r td)
---             | o == d = Path o d r 0
---             | otherwise = if d == rtDestination then Path o d updatedRoutes updatedDistance else Path o d r td
-
--- pathTo :: Location -> ShortestKnownPaths -> Path
--- pathTo l [] = Path l l [] 0
--- pathTo l paths = case fPaths paths of
---     [] -> Path l l [] 0
---     (p:_) -> p
---     where
---         fPaths = filter (\(Path _ d _ _) -> d == l)
-
--- initialPaths :: Location -> Unvisited -> ShortestKnownPaths
--- initialPaths l = map (\l' -> Path l l' [] mkInfinity)
-
--- routesStartingAt :: Location -> [Route] -> [Route]
--- routesStartingAt l = filter (\(Route o _ _) -> o == l)
-
--- getNextLocation :: Unvisited -> ShortestKnownPaths -> Location
--- getNextLocation [] _ = error "No more locations to visit"
--- getNextLocation _ [] = error "No more paths to check"
--- getNextLocation ls (p:ps)
---     | pathDestination p `elem` ls = pathDestination p
---     | otherwise = getNextLocation ls ps
-
--- mkPath :: [Route] -> Path
--- mkPath [] = error "No routes provided"
--- mkPath rs = Path (origin $ head rs) (destination $ last rs) rs (foldr (\(Route _ _ d) acc -> acc + d) 0 rs)

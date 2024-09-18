@@ -3,19 +3,25 @@ import Data.List.Split (splitOn)
 import Geo.Route (Route, mkRoute)
 import Geo.Location (Location (Location))
 
-loadRoutes :: [Location] -> IO [Route]
-loadRoutes locs = do
-    content <- readFile "data/routes.txt"
+loadRoutes :: String -> [Location] -> IO [Route]
+loadRoutes aircompany locs = do
+    content <- readFile $ "data/air-companies/" <> aircompany <> ".txt"
     let routesStr = lines content
-    let routes = map (mkRoute' locs) routesStr
+    let routes = map (mkRoute' aircompany locs) routesStr
     return routes
 
-mkRoute' :: [Location] -> String -> Route
-mkRoute' locs s = mkRoute (origin `locationIn` locs) (destination `locationIn` locs)
+mkRoute' :: String -> [Location] -> String -> Route
+mkRoute' aircompany locs s = mkRoute aircompany (origin `locationIn` locs) (destination `locationIn` locs) price
     where 
-        params = splitOn " -> " s
-        origin = head params
-        destination = last params
+        params = splitOn " | " s
+        price = fromInteger $ read $ last params
+        route = splitOn " -> " $ head params
+        origin = head route
+        destination = last route
 
 locationIn :: String -> [Location] -> Location
-locationIn name locs = head $ filter (\(Location n _ _) -> n == name) locs
+locationIn name locs = case location of
+    [] -> error $ "Location " <> name <> " not found"
+    (l:_) -> l
+    where
+        location = filter (\(Location n _ _) -> n == name) locs

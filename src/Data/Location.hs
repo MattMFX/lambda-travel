@@ -10,7 +10,7 @@ loadLocations = do
 
 mkLocation :: String -> Location
 mkLocation s = case params of
-    [name, x, y] -> Location name (read x) (read y)
+    [locationName, x, y] -> Location locationName (read x) (read y)
     _ -> error "Invalid location"
     where
         params = words s

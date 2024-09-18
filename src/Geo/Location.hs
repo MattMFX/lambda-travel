@@ -11,6 +11,8 @@ instance Show Location where
 
 instance Eq Location where
     (Location n1 _ _) == (Location n2 _ _) = n1 == n2
+    (Location n1 _ _) /= (Location n2 _ _) = n1 /= n2
+
 
 lookupLocation :: String -> [Location] -> Maybe Location
 lookupLocation locationName locs = case match of

@@ -22,7 +22,7 @@ instance Fractional Price where
     fromRational r = Finite (fromRational r)
 
 instance Show Price where
-    show (Finite p) = "$ " <> show p
+    show (Finite p) = "$" <> show p
     show Infinity = "Infinity"
 
 asDouble :: Price -> Maybe Double

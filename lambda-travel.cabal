@@ -25,8 +25,10 @@ source-repository head
 
 library
   exposed-modules:
+      Data.AirCompanies
       Data.Location
       Data.Route
+      Date.Date
       Geo.Distance
       Geo.Location
       Geo.Path
@@ -43,6 +45,7 @@ library
   build-depends:
       base >=4.7 && <5
     , mtl >=2.3.1
+    , random
     , split
   default-language: Haskell2010
 
@@ -59,6 +62,7 @@ executable lambda-travel-exe
       base >=4.7 && <5
     , lambda-travel
     , mtl >=2.3.1
+    , random
     , split
   default-language: Haskell2010
 
@@ -76,5 +80,6 @@ test-suite lambda-travel-test
       base >=4.7 && <5
     , lambda-travel
     , mtl >=2.3.1
+    , random
     , split
   default-language: Haskell2010

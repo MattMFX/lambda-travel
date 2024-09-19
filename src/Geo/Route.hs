@@ -12,7 +12,7 @@ data Route = Route {
     }
 
 instance Show Route where
-    show (Route company (Location n1 _ _) (Location n2 _ _) _ _) = "Air Company" <> company <> ": " <> n1 <> " -> " <> n2
+    show (Route company (Location n1 _ _) (Location n2 _ _) _ _) = "Air Company: " <> company <> ": " <> n1 <> " -> " <> n2
 
 
 

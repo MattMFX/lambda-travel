@@ -105,3 +105,10 @@ San_Francisco -12000 4100
 Orlando -8300 2800
 San_Diego -12150 3800
 Las_Vegas -11400 3700
+Copenhagen 1300 500
+Budapest 1700 850
+Lisbon -200 400
+Brussels 750 550
+Milan 1000 400
+Frankfurt 900 600
+Zurich 1100 450

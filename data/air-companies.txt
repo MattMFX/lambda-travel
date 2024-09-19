@@ -2,3 +2,10 @@ aero-curry
 airfunctional-europe
 haskell-us-airlines
 monad-airway-latam
+lambda-air
+monoid-world-air
+church-airways
+asian-airlines
+hof-air
+world-wide-air
+one-airline

@@ -3,7 +3,7 @@ import Geo.Location (lookupLocation, Location)
 import Geo.Path (shortestPaths, Path (Path), Cost (fCost))
 import Data.Location (loadLocations)
 import Data.Route (loadRoutes)
-import Geo.Route (Route(price))
+import Geo.Route
 import Data.AirCompanies (loadAirCompanies)
 import Monetary.Price (Price)
 import Geo.Distance (Distance)
@@ -18,7 +18,7 @@ main = do
 
     putStrLn "Select a location to start from:"
     putStrLn $ unlines $ map show locations
-    origin <- readLocation locations
+    inputOrigin <- readLocation locations
 
     putStrLn "Type [1] to select a destination or type [2] to see all available destinations:"
     destinationOption <- readOption ["1", "2"]
@@ -33,11 +33,11 @@ main = do
             putStrLn "Available destinations:"
             if sortOption == "1"
                 then do
-                    let paths = shortestPaths origin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Price)
+                    let paths = shortestPaths inputOrigin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Price)
                     let path = filter (matchingDestination d) paths
                     print path
                 else do
-                    let paths = shortestPaths origin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Distance)
+                    let paths = shortestPaths inputOrigin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Distance)
                     let path = filter (matchingDestination d) paths
                     print path
         else do
@@ -46,10 +46,10 @@ main = do
             if sortOption == "1"
                 then do
                     putStrLn "Available destinations:"
-                    print $ shortestPaths origin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Price)
+                    print $ shortestPaths inputOrigin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Price)
                 else do
                     putStrLn "Available destinations:"
-                    print $ shortestPaths origin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Distance)
+                    print $ shortestPaths inputOrigin locations (routes routesByCompany) (fCost :: Geo.Route.Route -> Distance)
         where
             matchingDestination d (Path _ d' _ _) = d == d'
             routes = concat
